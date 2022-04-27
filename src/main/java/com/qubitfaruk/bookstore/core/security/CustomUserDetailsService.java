@@ -20,6 +20,12 @@ public class CustomUserDetailsService implements UserDetailsService {
         User user=this.userService.findByUserName(username).orElseThrow(()->new UsernameNotFoundException(username));
 
         Set<GrantedAuthority> authorities=Set.of(SecurityUtils.convertToAuthority(user.getRole().name()));
-        return null;
+        return UserPrincipal.builder()
+                .user(user)
+                .id(user.getId())
+                        .authorities(authorities)
+                                .password(user.getPassword())
+                                        .username(username)
+                                                         .build();
     }
 }
