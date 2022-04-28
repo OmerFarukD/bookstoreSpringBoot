@@ -9,8 +9,9 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface IPurchaseHistoryRepository extends JpaRepository<PurchaseHistory,Long> {
-    @Query("b.title as title ,ph.purchaseTime as purchaseTime " +
-            "select * from  PurchaseHistory ph left join Book b on b.id=ph.bookId" +
-            "where ph.userId=:userId")
-    List<PurchaseDto> getAllPurchasesOfUser(@Param("userId") Long userId);
+    @Query("select " +
+            "b.title as title, ph.price as price, ph.createTime as purchaseTime  " +
+            "from PurchaseHistory ph left join Book b on b.Id = ph.bookId " +
+            "where ph.userId = :userId")
+    List<PurchaseDto> findAllPurchasesOfUser(@Param("userId") Long userId);
 }

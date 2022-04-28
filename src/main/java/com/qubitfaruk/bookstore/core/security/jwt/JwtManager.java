@@ -25,7 +25,7 @@ public class JwtManager implements IJwtProvider{
     private String JWT_SECRET;
 
     @Value("app.jwt.expiration-ms")
-    private Long JWT_EXPIRATION_IN_MS;
+    private String JWT_EXPIRATION_IN_MS;
 
     @Override
     public String generateToken(UserPrincipal auth){
@@ -38,6 +38,7 @@ public class JwtManager implements IJwtProvider{
                 .signWith(SignatureAlgorithm.HS512,JWT_SECRET)
                 .compact();
     }
+    @Override
     public Authentication getAuthentication(HttpServletRequest request){
         Claims claims=extractClaims(request);
         if (claims==null){
@@ -60,6 +61,7 @@ public class JwtManager implements IJwtProvider{
         return new UsernamePasswordAuthenticationToken(userDetails,null,authorities);
     }
 
+    @Override
     public boolean validateToken(HttpServletRequest request){
         Claims claims=extractClaims(request);
         if (claims==null){

@@ -18,6 +18,6 @@ public class PurchaseManager implements IPurchaseService {
 
     @Override
     public List<PurchaseDto> findPurchasedItemsOfUser(Long id) {
-        return this.purchaseHistoryRepository.getAllPurchasesOfUser(id);
-    }
+        return this.purchaseHistoryRepository.findAllPurchasesOfUser(id);
+   }
 }
