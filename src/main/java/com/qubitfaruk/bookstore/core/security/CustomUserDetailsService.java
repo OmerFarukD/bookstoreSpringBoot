@@ -1,6 +1,6 @@
 package com.qubitfaruk.bookstore.core.security;
 
-import com.qubitfaruk.bookstore.business.abstracts.IUserService;
+import com.qubitfaruk.bookstore.core.business.abstracts.IUserService;
 import com.qubitfaruk.bookstore.core.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;

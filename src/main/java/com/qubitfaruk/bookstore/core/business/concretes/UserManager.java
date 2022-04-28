@@ -1,6 +1,6 @@
-package com.qubitfaruk.bookstore.business.concretes;
+package com.qubitfaruk.bookstore.core.business.concretes;
 
-import com.qubitfaruk.bookstore.business.abstracts.IUserService;
+import com.qubitfaruk.bookstore.core.business.abstracts.IUserService;
 import com.qubitfaruk.bookstore.core.dataAccess.IUserRepository;
 import com.qubitfaruk.bookstore.core.entity.Role;
 import com.qubitfaruk.bookstore.core.entity.User;

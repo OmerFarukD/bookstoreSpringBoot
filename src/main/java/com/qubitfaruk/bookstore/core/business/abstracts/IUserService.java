@@ -1,4 +1,4 @@
-package com.qubitfaruk.bookstore.business.abstracts;
+package com.qubitfaruk.bookstore.core.business.abstracts;
 
 import com.qubitfaruk.bookstore.core.entity.User;
 
