@@ -1,5 +1,6 @@
 package com.qubitfaruk.bookstore.core.security;
 
+import com.qubitfaruk.bookstore.core.entity.Role;
 import com.qubitfaruk.bookstore.core.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,6 +16,12 @@ import java.util.Set;
 @AllArgsConstructor
 @Builder
 public class UserPrincipal implements UserDetails {
+
+    public static UserPrincipal createSuperUser(){
+        Set<GrantedAuthority> authorities=Set.of(SecurityUtils.convertToAuthority(Role.SYSTEM_MANAGER.name()));
+       return UserPrincipal.builder().id(-1L).username("system-administrator").authorities(authorities)
+               .build();
+    }
 
     private Long id;
     private String username;

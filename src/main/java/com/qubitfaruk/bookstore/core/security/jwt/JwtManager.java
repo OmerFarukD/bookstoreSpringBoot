@@ -21,10 +21,10 @@ import java.util.stream.Collectors;
 @Component
 public class JwtManager implements IJwtProvider{
 
-    @Value("app.jwt.secret")
+    @Value("${app.jwt.secret}")
     private String JWT_SECRET;
 
-    @Value("app.jwt.expiration-ms")
+    @Value("${app.jwt.expiration-ms}")
     private String JWT_EXPIRATION_IN_MS;
 
     @Override

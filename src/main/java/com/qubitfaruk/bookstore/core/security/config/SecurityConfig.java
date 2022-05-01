@@ -1,8 +1,11 @@
 package com.qubitfaruk.bookstore.core.security.config;
 
+import com.qubitfaruk.bookstore.core.entity.Role;
 import com.qubitfaruk.bookstore.core.security.CustomUserDetailsService;
+import com.qubitfaruk.bookstore.core.security.InternalApiAuthenticationFilter;
 import com.qubitfaruk.bookstore.core.security.jwt.JwtAuthorizationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -28,6 +31,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
     }
+    @Value("${authentication.internal-api-key}")
+    private String internalApiKey;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -37,9 +42,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.authorizeRequests()
                 .antMatchers("/api/authentication/**").permitAll()
+                .antMatchers("/api/internal/**").hasRole(Role.SYSTEM_MANAGER.name())
                 .anyRequest().authenticated();
 
         http.addFilterBefore(jwtAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(internalApiAuthenticationFilter(),JwtAuthorizationFilter.class);
     }
 
     public WebMvcConfigurer corsConfigurer(){
@@ -69,5 +76,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public PasswordEncoder passwordEncoder(){
         return  new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public InternalApiAuthenticationFilter internalApiAuthenticationFilter(){
+        return new InternalApiAuthenticationFilter(internalApiKey);
     }
 }
