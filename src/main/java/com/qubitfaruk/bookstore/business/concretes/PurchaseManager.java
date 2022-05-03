@@ -5,9 +5,10 @@ import com.qubitfaruk.bookstore.dataAccess.IPurchaseHistoryRepository;
 import com.qubitfaruk.bookstore.entities.concrete.PurchaseHistory;
 import com.qubitfaruk.bookstore.entities.dto.PurchaseDto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@Service
 public class PurchaseManager implements IPurchaseService {
     @Autowired
     private IPurchaseHistoryRepository purchaseHistoryRepository;
